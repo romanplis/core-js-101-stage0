@@ -295,8 +295,54 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr1 = ccn.toString().split('');
+  const arr2 = arr1.map((item) => +item);
+
+  if (arr1.length % 2 === 0) {
+    for (let i = 0; i < arr1.length; i += 2) {
+      arr2[i] *= 2;
+    }
+
+    arr2.forEach((item, index) => {
+      if (item > 9) {
+        const str = item.toString();
+        const a = +str[0];
+        const b = +str[1];
+        const c = a + b;
+        arr2[index] = c;
+      }
+    });
+
+    const sum = arr2.reduce((acc, item) => acc + item, 0);
+
+    if (sum % 10 === 0) {
+      return true;
+    }
+
+    return false;
+  }
+  for (let i = 1; i < arr1.length; i += 2) {
+    arr2[i] *= 2;
+  }
+
+  arr2.forEach((item, index) => {
+    if (item > 9) {
+      const str = item.toString();
+      const a = +str[0];
+      const b = +str[1];
+      const c = a + b;
+      arr2[index] = c;
+    }
+  });
+
+  const sum = arr2.reduce((acc, item) => acc + item, 0);
+
+  if (sum % 10 === 0) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -313,8 +359,8 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  return num % 9;
 }
 
 /**
@@ -434,8 +480,40 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[i][0] !== undefined &&
+      position[i][0] === position[i][1] &&
+      position[i][1] === position[i][2]
+    ) {
+      return position[i][0];
+    }
+  }
+  for (let i = 0; i < 3; i += 1) {
+    if (
+      position[0][i] !== undefined &&
+      position[0][i] === position[1][i] &&
+      position[1][i] === position[2][i]
+    ) {
+      return position[0][i];
+    }
+  }
+  if (
+    position[0][0] !== undefined &&
+    position[0][0] === position[1][1] &&
+    position[1][1] === position[2][2]
+  ) {
+    return position[0][0];
+  }
+  if (
+    position[0][2] !== undefined &&
+    position[0][2] === position[1][1] &&
+    position[1][1] === position[2][0]
+  ) {
+    return position[0][2];
+  }
+  return undefined;
 }
 
 module.exports = {
